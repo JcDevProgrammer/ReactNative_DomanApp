@@ -2,31 +2,106 @@ import { View, Text, SafeAreaView, ScrollView, Image} from 'react-native'
 import React from 'react'
 import styles from './../styles/screenStyles/RegistrationScreenStyles'
 import {useForm, Controller} from "react-hook-form"
-import Inputs from './../components/Inputs'
+import CustomInput from '../components/CustomInput'
 import RedButton from '../components/RedButton'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { schema }from "./../components/CustomInputValidation"
 
 const RegistrationScreen = () => {
+
+  const {
+    control,
+    handleSubmit,
+    formState: {
+    errors
+    }
+  } = useForm(
+    {
+      defaultValues: {
+        id: "",
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+      },
+      resolver: yupResolver(schema)
+    }
+  )
+
+  console.log(errors);
+
+  const submit = (data) =>{
+    console.log(data);
+    Alert.alert(JSON.stringify(data));
+  }
+
   return (
     <SafeAreaView>
       <ScrollView>
 
         <View style = {styles.container}>
 
-        <IDInput/>
+        <CustomInput
+          control={control}
+          name={'id'}
+          placeholder={'ID number      '}
+      
+          errors={errors}
+          />
 
-        <FirstNameInput/>
+<CustomInput
+          control={control}
+          name={'firstName'}
+          placeholder={'FirstName      '}
+          iconName={"person"}
+          errors={errors}
+          />
 
-        <LastNameInput/>
+<CustomInput
+          control={control}
+          name={'lastName'}
+          placeholder={'LastName        '}
+          iconName={"person"}
+          errors={errors}
+          />
 
-        <PhoneNumberInput/>
+<CustomInput
+          control={control}
+          name={'phoneNumber'}
+          placeholder={'PhoneNumber   '}
+          iconName={"phone"}
+          errors={errors}
+          />
 
-        <EmailInput/>
+<CustomInput
+          control={control}
+          name={'email'}
+          placeholder={'ValidEmail         '}
+          iconName={"email"}
+          errors={errors}
+          />
 
-        <PasswordInput/>
+<CustomInput
+          control={control}
+          name={'password'}
+          placeholder={'Password          '}
+          iconName={"lock"}
+          errors={errors}
+          />
 
-        <ConfirmPasswordInput/>
-        
-        <RedButton text={'Register'}/>
+<CustomInput
+          control={control}
+          name={'confirmPassword'}
+          placeholder={'ConfirmPassword'}
+          iconName={"lock"}
+          errors={errors}
+          />
+
+
+
+        <RedButton text={'Register'} onPress={handleSubmit(submit)}/>
 
         </View>
 
@@ -34,195 +109,6 @@ const RegistrationScreen = () => {
 
       </ScrollView>
     </SafeAreaView>
-  )
-}
-
-const IDInput = () => {
-
-  const { control, handleSubmit, formState: {errors}} = useForm()
-
-  return(
-
-    <View style = {styles.inputContainerPadding}>
-      
-      <Text>ID</Text>
-
-      <View style = {styles.inputContainer}>
-      
-        <Image
-          source={require('./../assets/images/IdIcon.png')}
-          style= {styles.icons}
-          />
-
-        <Inputs  
-          control={control} 
-          name = {"ID"} 
-          placeholder={"ID"} 
-        />
-      </View>
-    </View>
-  )
-}
-
-const FirstNameInput = () => {
-
-  const { control, handleSubmit, formState: {errors}} = useForm()
-
-  return(
-
-    <View style = {styles.inputContainerPadding}>
-      
-      <Text>First Name</Text>
-
-      <View style = {styles.inputContainer}>
-      
-        <Image
-          source={require('./../assets/images/PersonIcon.png')}
-          style= {styles.icons}
-          />
-
-        <Inputs  
-          control={control} 
-          name = {"FirstName"} 
-          placeholder={"First Name"} 
-        />
-      </View>
-    </View>
-  )
-}
-
-const LastNameInput = () => {
-
-  const { control, handleSubmit, formState: {errors}} = useForm()
-
-  return(
-
-    <View style = {styles.inputContainerPadding}>
-      
-      <Text>Last Name</Text>
-
-      <View style = {styles.inputContainer}>
-      
-        <Image
-          source={require('./../assets/images/PersonIcon.png')}
-          style= {styles.icons}
-          />
-
-        <Inputs  
-          control={control} 
-          name = {"LastName"} 
-          placeholder={"Last Name"} 
-        />
-      </View>
-    </View>
-  )
-}
-
-const PhoneNumberInput = () => {
-
-  const { control, handleSubmit, formState: {errors}} = useForm()
-
-  return(
-
-    <View style = {styles.inputContainerPadding}>
-      
-      <Text>Phone Number</Text>
-
-      <View style = {styles.inputContainer}>
-      
-        <Image
-          source={require('./../assets/images/PhoneNumberIcon.png')}
-          style= {styles.icons}
-          />
-
-        <Inputs  
-          control={control} 
-          name = {"PhoneNumber"} 
-          placeholder={"Phone Number"} 
-        />
-      </View>
-    </View>
-  )
-}
-
-const EmailInput = () => {
-
-  const { control, handleSubmit, formState: {errors}} = useForm()
-
-  return(
-
-    <View style = {styles.inputContainerPadding}>
-      
-      <Text>Email</Text>
-
-      <View style = {styles.inputContainer}>
-      
-        <Image
-          source={require('./../assets/images/EmailIcon.jpg')}
-          style= {styles.icons}
-          />
-
-        <Inputs  
-          control={control} 
-          name = {"Email"} 
-          placeholder={"Email"} 
-        />
-      </View>
-    </View>
-  )
-}
-
-const PasswordInput = () => {
-
-  const { control, handleSubmit, formState: {errors}} = useForm()
-
-  return(
-
-    <View style = {styles.inputContainerPadding}>
-      
-      <Text>Password</Text>
-
-      <View style = {styles.inputContainer}>
-      
-        <Image
-          source={require('./../assets/images/PasswordIcon.jpg')}
-          style= {styles.icons}
-          />
-
-        <Inputs  
-          control={control} 
-          name = {"Password"} 
-          placeholder={"Password"} 
-        />
-      </View>
-    </View>
-  )
-}
-
-const ConfirmPasswordInput = () => {
-
-  const { control, handleSubmit, formState: {errors}} = useForm()
-
-  return(
-
-    <View style = {styles.inputContainerPadding}>
-      
-      <Text>Confirm Password </Text>
-
-      <View style = {styles.inputContainer}>
-      
-        <Image
-          source={require('./../assets/images/PasswordIcon.jpg')}
-          style= {styles.icons}
-          />
-
-        <Inputs  
-          control={control} 
-          name = {"ConfirmPassword"} 
-          placeholder={"Confirm Password"} 
-        />
-      </View>
-    </View>
   )
 }
 

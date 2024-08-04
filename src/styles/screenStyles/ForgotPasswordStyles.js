@@ -5,6 +5,7 @@ export default StyleSheet.create({
     container:{
         alignContent: 'center',
         alignItems: 'center',
+        paddingTop: 100
     },
     image:{
         height: 150,
@@ -13,6 +14,7 @@ export default StyleSheet.create({
     icons:{
         height:30,
         width: 30,
+    
     },
 
     text:{

@@ -7,8 +7,19 @@ import RegistrationScreen from '../src/screens/RegistrationScreen'
 
 const DomanRegistration = () => {
   return (
+    <SafeAreaView >
+
+      <BackButton/>
+      
+      <RegistrationScreen/>
+      
+    </SafeAreaView>
+  )
+}
+
+const BackButton = () => {
+  return(
     <View style = {styles.container}>
-      <View style = {styles.view}>
 
       <Link href={'DomanLogIn'}>
         <View >
@@ -18,14 +29,10 @@ const DomanRegistration = () => {
           />
         </View>
       </Link>
-      </View>
-
-      <RegistrationScreen/>
-      
     </View>
+
   )
 }
-
 
 
 

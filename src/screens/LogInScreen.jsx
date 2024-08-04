@@ -1,12 +1,37 @@
-import { View, Text, Image, SafeAreaView, TextInput, ScrollView} from 'react-native'
+import { View, Text, Image, SafeAreaView, TextInput, ScrollView, Alert} from 'react-native'
 import React from 'react'
 import styles from './../styles/screenStyles/LogInScreenStyles'
 import RedButton from './../components/RedButton'
-import Inputs from './../components/Inputs'
+import CustomInput from '../components/CustomInput'
 import {useForm, Controller} from "react-hook-form"
+import { yupResolver } from '@hookform/resolvers/yup'
+import {schema} from "./../components/CustomInputValidation"
 
 
 const LogInScreen = () => {
+
+  const {
+    control,
+    handleSubmit,
+    formState: {
+    errors
+    }
+  } = useForm(
+    {
+      defaultValues: {
+        username: "",
+        password: "",
+      },
+      resolver: yupResolver(schema)
+    }
+  )
+
+  console.log(errors);
+
+  const submit = (data) =>{
+    console.log(data);
+    Alert.alert(JSON.stringify(data));
+  }
 
   return (
     <SafeAreaView >
@@ -17,12 +42,25 @@ const LogInScreen = () => {
           <RedCrossImage/>
       
           <Text style = {styles.text}>QUEZON CITY-CHAPTER</Text>
-    
-          <EmailInput/>
 
-          <PasswordInput/>
+          <CustomInput
+          control={control}
+          name={'username'}
+          placeholder={'UserName'}
+          iconName={"email"}
+          errors={errors}
+          />
 
-          <RedButton text={'Log In'}/>
+         <CustomInput
+          control={control}
+          name={'password'}
+          placeholder={'Password'}
+          iconName={"lock"}
+          secureTextEntry={true}
+          errors={errors}
+          />
+
+          <RedButton text={'Log In'} onPress={handleSubmit(submit)}/>
 
         </View>
 
@@ -39,69 +77,6 @@ const RedCrossImage = () => {
         />
   )
 }
-
-const EmailInput = () => {
-
-  const {
-    control,
-    handleSubmit,
-    formState: {
-    errors
-    }
-  } = useForm()
-
-  return(
-
-    <View style = {styles.inputContainerPadding}>
-      
-      <Text>UserName</Text>
-
-      <View style = {styles.inputContainer}>
-      
-        <Image
-          source={require('./../assets/images/EmailIcon.jpg')}
-          style= {styles.icons}
-          />
-
-        <Inputs  
-          control={control} 
-          name = {"username"} 
-          placeholder={"UserName"} 
-        />
-      </View>
-    </View>
-  )
-}
-
-const PasswordInput = () => {
-
-  const {
-    control,
-    handleSubmit,
-    formState: {
-    errors
-    }
-  } = useForm()
-
-  return(
-    <View>
-      <Text>Password</Text>
-      <View style = {styles.inputContainer}>
-        <Image
-          source={require('./../assets/images/PasswordIcon.jpg')}
-          style= {styles.icons}
-        />
-
-        <Inputs  
-          control={control} 
-          name = {"password"} 
-          placeholder={"Password"} 
-        />
-      </View>
-    </View>
-  )
-}
-
 
 
 export default LogInScreen;
