@@ -11,7 +11,9 @@ const CustomInput = ({control, rules ={}, iconName, errors, name, placeholder, k
   <View style = {styles.placeholderText}>
   <Text>{placeholder}</Text>
   </View>
+
     <View style= {styles.container}>
+
       <Controller
       name = {name}
       control = {control}
@@ -44,7 +46,6 @@ const CustomInput = ({control, rules ={}, iconName, errors, name, placeholder, k
   )
 }
 
-
 CustomInput.propTypes = {
   control: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
@@ -52,7 +53,7 @@ CustomInput.propTypes = {
   placeholder: PropTypes.string,
   keyboardType: PropTypes.string,
   iconName: PropTypes.string,
+  errors: PropTypes.object,
 };
-
 
 export default CustomInput;

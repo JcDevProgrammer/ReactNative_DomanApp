@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './../styles/componentStyles/RedButtonStyles'
 
 export default function RedButton({text, onPress}) {

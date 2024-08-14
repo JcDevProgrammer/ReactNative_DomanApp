@@ -1,14 +1,12 @@
 import { View, Text, Image} from 'react-native'
 import React from 'react'
-import styles from './../styles/screenStyles/AdminMainStyles'
-import LongRedButton from '../components/LongRedButton'
+import styles from '../../../styles/screenStyles/adminStyles/AdminMainStyles'
+import LongRedButton from '../../../components/LongRedButton'
 
 
 const AdminMainScreen = () => {
   return (
     <View style = {styles.container}>
-
-      <Text>Admin</Text>
 
       <RedCrossImage/>
 
@@ -25,9 +23,10 @@ const AdminMainScreen = () => {
 const RedCrossImage = () => {
     return(
      <Image
-          source={require('./../assets/images/RedCrossLogo.jpg')}
+          source={require('./../../../assets/images/RedCrossLogo.jpg')}
           style= {styles.image}
           />
     )
   }
+
 export default AdminMainScreen

@@ -1,14 +1,18 @@
 import { View, Text, Image, SafeAreaView, TextInput, ScrollView, Alert} from 'react-native'
 import React from 'react'
-import styles from './../styles/screenStyles/LogInScreenStyles'
-import RedButton from './../components/RedButton'
-import CustomInput from '../components/CustomInput'
+import styles from '../../styles/screenStyles/userAuthStyles/LogInScreenStyles'
+import RedButton from '../../components/RedButton'
+import CustomInput from '../../components/CustomInput'
 import {useForm, Controller} from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
-import {schema} from "./../components/CustomInputValidation"
+import { useNavigation } from '@react-navigation/native';
 
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+import app from '../../components/firebase'
 
 const LogInScreen = () => {
+  const navigation = useNavigation();
 
   const {
     control,
@@ -19,18 +23,27 @@ const LogInScreen = () => {
   } = useForm(
     {
       defaultValues: {
-        username: "",
+        email: "",
         password: "",
       },
-      resolver: yupResolver(schema)
+    
     }
   )
 
-  console.log(errors);
-
-  const submit = (data) =>{
-    console.log(data);
-    Alert.alert(JSON.stringify(data));
+  const LogIn = (data) =>{
+  const auth = getAuth(app);
+  signInWithEmailAndPassword(auth, data.email, data.password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log("login")
+    navigation.navigate('admin')
+        // ...
+  })
+   .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+   });
   }
 
   return (
@@ -45,7 +58,7 @@ const LogInScreen = () => {
 
           <CustomInput
           control={control}
-          name={'username'}
+          name={'email'}
           placeholder={'UserName'}
           iconName={"email"}
           errors={errors}
@@ -60,7 +73,7 @@ const LogInScreen = () => {
           errors={errors}
           />
 
-          <RedButton text={'Log In'} onPress={handleSubmit(submit)}/>
+          <RedButton text={'Log In'} onPress={handleSubmit(LogIn) }/>
 
         </View>
 
@@ -72,7 +85,7 @@ const LogInScreen = () => {
 const RedCrossImage = () => {
   return(
    <Image
-        source={require('./../assets/images/RedCrossLogo.jpg')}
+        source={require('./../../assets/images/RedCrossLogo.jpg')}
         style= {styles.image}
         />
   )

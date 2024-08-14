@@ -1,11 +1,18 @@
-import { View, Text, SafeAreaView, ScrollView, Image} from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, Image, Alert} from 'react-native'
 import React from 'react'
-import styles from './../styles/screenStyles/RegistrationScreenStyles'
-import {useForm, Controller} from "react-hook-form"
-import CustomInput from '../components/CustomInput'
-import RedButton from '../components/RedButton'
+import styles from '../../styles/screenStyles/userAuthStyles/RegistrationScreenStyles'
+import {useForm} from "react-hook-form"
+import CustomInput from '../../components/CustomInput'
+import RedButton from '../../components/RedButton'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { schema }from "./../components/CustomInputValidation"
+import { schema } from '../../components/InputRegistrationValidation'
+
+import app from '../../components/firebase'
+import {getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+
+import { getFirestore, doc, setDoc} from 'firebase/firestore'
+
+import "firebase/firestore";
 
 const RegistrationScreen = () => {
 
@@ -30,13 +37,32 @@ const RegistrationScreen = () => {
     }
   )
 
-  console.log(errors);
+  const submit = async (data) => {
 
-  const submit = (data) =>{
-    console.log(data);
-    Alert.alert(JSON.stringify(data));
-  }
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
+    const { firstName, phoneNumber, email, password } = data;
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      await setDoc(doc(db, 'users', user.uid), {
+        firstName,
+        phoneNumber,
+        email,
+      });
+
+      console.log('User signed up and data stored in Firestore!');
+    } catch (error) {
+      console.error('Error signing up:', error);
+    }
+  };
+
+
+
+  
   return (
     <SafeAreaView>
       <ScrollView>
@@ -47,7 +73,6 @@ const RegistrationScreen = () => {
           control={control}
           name={'id'}
           placeholder={'ID number      '}
-      
           errors={errors}
           />
 
@@ -100,8 +125,9 @@ const RegistrationScreen = () => {
           />
 
 
-
         <RedButton text={'Register'} onPress={handleSubmit(submit)}/>
+
+        
 
         </View>
 

@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const DomanDonatorMain = () => {
+const ArdanaMain = () => {
   return (
     <View>
-      <Text>DomanDonatorMain</Text>
+      <Text>ArdanaMain</Text>
     </View>
   )
 }
 
-export default DomanDonatorMain
+export default ArdanaMain

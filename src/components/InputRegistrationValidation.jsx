@@ -2,10 +2,6 @@ import * as yup from "yup"
 
 export const schema = yup
   .object({
-    username: yup
-      .string()
-      .required("Username is required"),
-
     id: yup
       .string()
       .required("Id is required"),
