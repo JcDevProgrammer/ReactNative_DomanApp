@@ -1,14 +1,15 @@
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
-    container: {
+    textContainer: {
+        paddingTop: 25,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
       },
     
       linkRegister: {
-        paddingLeft: 100,
+        paddingLeft: 120,
         color: 'blue'
       }
 

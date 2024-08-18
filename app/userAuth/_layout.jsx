@@ -4,8 +4,12 @@ import React from "react";
 export default function RootLayout() {
   return (
     <Stack screenOptions={{headerShown:false}}>
-      <Stack.Screen name="LogIn" />  
+      <Stack.Screen name="LogIn" /> 
+      <Stack.Screen name ="ForgotChangePass" />
+      <Stack.Screen name ="VerifyEmail" /> 
       <Stack.Screen name="Registration"/>
+      <Stack.Screen name="RegistrationSelect"/>
+      <Stack.Screen name="RegistrationRedCross"/>
       <Stack.Screen name="ForgotPassword"/>
     </Stack>
   );

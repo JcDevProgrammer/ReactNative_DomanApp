@@ -27,7 +27,7 @@ const ForgotPasswordandRegistration = () =>{
 
   return(
 
-    <View style = {styles.container}>
+    <View style = {styles.textContainer}>
 
       <Text 
       onPress={() => navigation.push('ForgotPassword')}>Forgot Password
@@ -35,7 +35,7 @@ const ForgotPasswordandRegistration = () =>{
         
       <Text 
       style = {styles.linkRegister} 
-      onPress={() => navigation.push('Registration')}>Register
+      onPress={() => navigation.push('RegistrationSelect')}>Register
       </Text>
       
     </View>

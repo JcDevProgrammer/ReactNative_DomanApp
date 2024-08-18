@@ -1,6 +1,6 @@
-import { View, Text, SafeAreaView, ScrollView, Image} from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity} from 'react-native'
 import React from 'react'
-import styles from '../../styles/screenStyles/userAuthStyles/RegistrationScreenStyles'
+import styles from './../../styles/screenStyles/userAuthStyles/RegistrationRedCrossStyles'
 import {useForm} from "react-hook-form"
 import CustomInput from '../../components/CustomInput'
 import RedButton from '../../components/RedButton'
@@ -15,7 +15,7 @@ import { getFirestore, doc, setDoc} from 'firebase/firestore'
 
 import "firebase/firestore";
 
-const RegistrationScreen = () => {
+const RegistrationRedCrossScreen = () => {
   const navigation = useNavigation();
 
   const {
@@ -27,15 +27,12 @@ const RegistrationScreen = () => {
   } = useForm(
     {
       defaultValues: {
-        id: "",
-        firstName: "",
-        lastName: "",
+        name: "",
         phoneNumber: "",
         email: "",
         password: "",
         confirmPassword: ""
       },
-      resolver: yupResolver(schema)
     }
   )
 
@@ -44,15 +41,14 @@ const RegistrationScreen = () => {
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    const { firstName, lastName, phoneNumber, email, password } = data;
+    const { name, phoneNumber, email, password } = data;
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      await setDoc(doc(db, 'Donator', user.uid), {
-        firstName,
-        lastName,
+      await setDoc(doc(db, 'Ardana', user.uid), {
+        name,
         phoneNumber,
         email,
       });
@@ -76,47 +72,32 @@ const RegistrationScreen = () => {
 
         <View style = {styles.container}>
 
-        <CustomInput
-          control={control}
-          name={'id'}
-          placeholder={'ID number'}
-          nameDisplay={'ID Number      '}
-          errors={errors}
-          />
+            <BackButton/>
 
 <CustomInput
           control={control}
-          name={'firstName'}
-          placeholder={'FirstName'}
+          name={'name'}
+          placeholder={'Full name or Company name'}
           iconName={"person"}
-          nameDisplay={'First Name    '}
-          errors={errors}
-          />
-
-<CustomInput
-          control={control}
-          name={'lastName'}
-          placeholder={'LastName'}
-          iconName={"person"}
-          nameDisplay={'Last Name      '}
+          nameDisplay={"Account Name"}
           errors={errors}
           />
 
 <CustomInput
           control={control}
           name={'phoneNumber'}
-          placeholder={'PhoneNumber'}
+          placeholder={'Phone Number'}
           iconName={"phone"}
-          nameDisplay={'Phone Number  '}
+          nameDisplay={"Phone Number"}
           errors={errors}
           />
 
 <CustomInput
           control={control}
           name={'email'}
-          placeholder={'ValidEmail'}
+          placeholder={'Valid Email'}
           iconName={"email"}
-          nameDisplay={'Valid Email     '}
+          nameDisplay={"Valid Email      "}
           errors={errors}
           />
 
@@ -125,7 +106,7 @@ const RegistrationScreen = () => {
           name={'password'}
           placeholder={'Password'}
           iconName={"lock"}
-          nameDisplay={'Password         '}
+          nameDisplay={"Password           "}
           errors={errors}
           />
 
@@ -134,7 +115,7 @@ const RegistrationScreen = () => {
           name={'confirmPassword'}
           placeholder={'ConfirmPassword'}
           iconName={"lock"}
-          nameDisplay={'Confirm Password'}
+          nameDisplay={"Confirm Password"}
           errors={errors}
           />
 
@@ -147,4 +128,24 @@ const RegistrationScreen = () => {
   )
 }
 
-export default RegistrationScreen;
+const BackButton = () => {
+
+    const navigation = useNavigation();
+  
+    return(
+      <View style = {styles.backButtonContainer}>
+  
+          <TouchableOpacity onPress={()=> navigation.goBack()}>
+          <Image
+                source={require('./../../assets/images/BackIcon.jpg')}
+                style = {styles.image}
+            />
+          </TouchableOpacity>
+            
+      
+      </View>
+  
+    )
+  }
+
+export default RegistrationRedCrossScreen;

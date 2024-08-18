@@ -10,10 +10,10 @@ export default StyleSheet.create({
   buttonShadow: {
     backgroundColor: '#a00000', // Darker red for shadow
     borderRadius: 10,
-    padding: 2,
+    padding: 6,
 
     shadowColor: '#000',
-    shadowOffset: { width: 5, height: 5 },
+    shadowOffset: { width: 10, height: 10 },
     shadowOpacity: .8,
     shadowRadius: 5,
     // Android shadow
@@ -22,14 +22,23 @@ export default StyleSheet.create({
   button: {
     backgroundColor: '#ff0000', // Bright red for the button
     borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 25,
-    borderWidth: 2,
+    height: 150,
+    width: 200,
+    borderWidth: 3,
     borderColor: '#8B0000', // Darker border color to enhance 3D effect
   },
   buttonText: {
+    paddingTop: 10,
     color: 'white',
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
+  buttonText2: {
+    paddingTop: 12,
+    color: 'white',
+    fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
   },

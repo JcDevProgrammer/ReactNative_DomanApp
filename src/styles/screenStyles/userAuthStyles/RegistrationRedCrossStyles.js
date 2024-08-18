@@ -1,7 +1,12 @@
+import { StatusBar } from 'expo-status-bar'
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
     container:{
+        justifyContent:'center',
+        alignItems: 'center'
+    },
+    backButtonContainer:{
         justifyContent: 'space-around',
         alignItems: 'center',
         paddingRight: 300,

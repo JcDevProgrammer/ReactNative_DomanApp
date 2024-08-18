@@ -5,10 +5,10 @@ export default StyleSheet.create({
     container:{
         justifyContent: 'space-around',
         alignItems: 'center',
-        paddingTop: 40
+        paddingTop: 30
     },
     text:{
-        paddingBottom: 50,
+        paddingBottom: 40,
         paddingTop: 10,
         color: 'red',
         fontSize: 20,

@@ -5,11 +5,11 @@ import styles from '../styles/componentStyles/InputStyles'
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const CustomInput = ({control, rules ={}, iconName, errors, name, placeholder, keyboardType, ...props}) => {
+const CustomInput = ({control, rules ={}, iconName, errors, name, placeholder, nameDisplay, keyboardType, ...props}) => {
   return (
   <>
-  <View style = {styles.placeholderText}>
-  <Text>{placeholder}</Text>
+  <View style = {styles.placeholderPosition}>
+  <Text style={styles.textPlaceholder}>{nameDisplay}</Text>
   </View>
 
     <View style= {styles.container}>
@@ -22,10 +22,11 @@ const CustomInput = ({control, rules ={}, iconName, errors, name, placeholder, k
 
         <View style={styles.inputcontainer}>
 
-        {iconName && <Icon name={iconName} size={30} color="red" style={styles.icon} />}
+        {iconName && <Icon name={iconName} size={30} color="red" />}
 
         <TextInput
-        placeholder= {placeholder}  
+        placeholder= {placeholder}
+        nameDisplay={nameDisplay} 
         style = {styles.inputStyles}
         value = {value}
         onBlur= {onBlur}

@@ -5,11 +5,11 @@ export default StyleSheet.create({
     container:{
         alignContent: 'center',
         alignItems: 'center',
-        paddingTop: 100
+        paddingTop: 70
     },
     image:{
-        height: 150,
-        width: 150,
+        height: 170,
+        width: 170,
     },
     icons:{
         height:30,
@@ -17,10 +17,11 @@ export default StyleSheet.create({
     },
 
     text:{
-        paddingBottom: 140,
+        paddingBottom: 110,
         paddingTop: 5,
         color: 'red',
         fontSize: 20,
+        
     },
 
     inputContainer:{

@@ -4,10 +4,12 @@ import styles from './../styles/componentStyles/LongRedButtonStyles'
 
 export default function LongRedButton({text, onPress}) {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={(onPress) }>
-        <Text style={styles.buttonText}>{text}</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>
+      <View style={styles.buttonShadow}>
+        <View style={styles.button}>
+          <Text style={styles.buttonText}>{text}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 }

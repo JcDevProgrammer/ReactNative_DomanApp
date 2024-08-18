@@ -2,7 +2,6 @@ import {SafeAreaView, View, Text, Image} from 'react-native'
 import React from 'react'
 import styles from '../../../styles/screenStyles/adminStyles/AdminProfileStyles'
 import RedButton from '../../../components/RedButton'
-import MediumRedButton from '../../../components/MediumRedButton'
 import { useNavigation } from '@react-navigation/native'
 
 const AdminProfileScreen = () => {
@@ -12,7 +11,7 @@ const AdminProfileScreen = () => {
     <SafeAreaView style ={styles.container}>
 
       <ProfileImage/>
-
+     
       <Name/>
 
       <Email/>
@@ -21,7 +20,7 @@ const AdminProfileScreen = () => {
 
       <Birthday/>
 
-      <MediumRedButton 
+      <RedButton
       text= {'Edit Profile'}
       onPress={() => navigation.push('AdminEditProfile')}
       />

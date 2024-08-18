@@ -7,7 +7,7 @@ import {useForm, Controller} from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation } from '@react-navigation/native';
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from '@firebase/auth';
 
 import app from '../../components/firebase'
 
@@ -40,9 +40,8 @@ const LogInScreen = () => {
     navigation.navigate('admin')
         // ...
   })
-   .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
+   .catch(() => {
+    console.log("failed")
    });
   }
 

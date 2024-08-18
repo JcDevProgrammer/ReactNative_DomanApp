@@ -7,7 +7,7 @@ export default StyleSheet.create({
         paddingTop: 35
       },
     imageView:{
-        paddingRight: 125
+        paddingRight: 90
     },
     image:{
         height: 30,
@@ -15,7 +15,7 @@ export default StyleSheet.create({
     },
     textView: {
         justifyContent: 'center',
-        paddingRight: 160
+        paddingRight: 125
     },
     text: {
         fontSize:20

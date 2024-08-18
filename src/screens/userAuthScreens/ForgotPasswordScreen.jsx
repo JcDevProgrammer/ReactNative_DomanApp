@@ -7,10 +7,13 @@ import RedButton from '../../components/RedButton'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { schema } from '../../components/InputRegistrationValidation'
 import { useNavigation } from '@react-navigation/native';
+import {getAuth, sendPasswordResetEmail } from 'firebase/auth'
 
+import app from '@/src/components/firebase'
 
 const ForgotPasswordScreen = () => {
   const navigation = useNavigation();
+
   const {
     control,
     handleSubmit,
@@ -25,12 +28,20 @@ const ForgotPasswordScreen = () => {
     }
   )
 
+    const    resetPassword =  async (data) => {
+      const auth = getAuth(app);
+      
 
-  const submit = (data) =>{
-    console.log(data);
-    Alert.alert(JSON.stringify(data));
-  }
-
+      try {
+        await sendPasswordResetEmail(auth, data.email);
+        console.log("Success: Password reset email sent");
+        navigation.navigate('ForgotChangePass')
+      } catch (error) {
+        console.log("Failed: ", error.message);
+      }
+    }
+  
+    
   return (
     <View style={styles.container}>
 
@@ -50,7 +61,7 @@ const ForgotPasswordScreen = () => {
       
       <Text>Use Mobile Number</Text>
 
-      <RedButton text = {'Confirm'} onPress={handleSubmit(submit)}/>
+      <RedButton text = {'Confirm'} onPress={handleSubmit(resetPassword)}/>
 
       <RedButton
       onPress={() => navigation.goBack()}
@@ -70,4 +81,4 @@ const EmailImage = () => {
 }
 
 
-export default ForgotPasswordScreen
+export default ForgotPasswordScreen;
