@@ -50,7 +50,7 @@ const RegistrationScreen = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      await setDoc(doc(db, 'Donator', user.uid), {
+      await setDoc(doc(db, 'Ardana', user.uid), {
         firstName,
         lastName,
         phoneNumber,

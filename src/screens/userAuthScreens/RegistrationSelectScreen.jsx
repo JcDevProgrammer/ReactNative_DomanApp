@@ -31,7 +31,7 @@ const RegistrationSelectScreen = () => {
       <BoxButton
       text={'Donor Registration'}
       text2={'Individuals, Organizations or Company'}
-      onPress={()=>navigation.push('RegistrationRedCross')}
+      onPress={()=>navigation.push('RegistrationDonator')}
       />
     </View>
   )

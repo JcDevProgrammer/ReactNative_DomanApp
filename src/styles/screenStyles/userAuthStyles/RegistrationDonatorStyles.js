@@ -22,5 +22,4 @@ export default StyleSheet.create({
         height: 30,
         width: 30,
     }
-
 })

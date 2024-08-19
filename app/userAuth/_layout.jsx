@@ -9,7 +9,7 @@ export default function RootLayout() {
       <Stack.Screen name ="VerifyEmail" /> 
       <Stack.Screen name="Registration"/>
       <Stack.Screen name="RegistrationSelect"/>
-      <Stack.Screen name="RegistrationRedCross"/>
+      <Stack.Screen name="RegistrationDonator"/>
       <Stack.Screen name="ForgotPassword"/>
     </Stack>
   );

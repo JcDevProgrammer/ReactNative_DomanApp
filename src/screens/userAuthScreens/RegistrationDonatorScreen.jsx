@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, ScrollView, Image, TouchableOpacity} from 'react-native'
 import React from 'react'
-import styles from './../../styles/screenStyles/userAuthStyles/RegistrationRedCrossStyles'
+import styles from '../../styles/screenStyles/userAuthStyles/RegistrationDonatorStyles'
 import {useForm} from "react-hook-form"
 import CustomInput from '../../components/CustomInput'
 import RedButton from '../../components/RedButton'
@@ -15,7 +15,7 @@ import { getFirestore, doc, setDoc} from 'firebase/firestore'
 
 import "firebase/firestore";
 
-const RegistrationRedCrossScreen = () => {
+const RegistrationDonatorScreen = () => {
   const navigation = useNavigation();
 
   const {
@@ -47,7 +47,7 @@ const RegistrationRedCrossScreen = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      await setDoc(doc(db, 'Ardana', user.uid), {
+      await setDoc(doc(db, 'Donator', user.uid), {
         name,
         phoneNumber,
         email,
@@ -148,4 +148,4 @@ const BackButton = () => {
     )
   }
 
-export default RegistrationRedCrossScreen;
+export default RegistrationDonatorScreen;
