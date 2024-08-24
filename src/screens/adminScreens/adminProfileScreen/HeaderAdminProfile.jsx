@@ -1,19 +1,19 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
-import styles from '../../../styles/appStyles/HeaderProfileStyles'
+import styles from './../../../styles/screenStyles/adminStyles/AdminProfileStyles'
 
 
-const HeaderProfileScreen = () => {
+const HeaderAdminProfile = () => {
 
   return(
 
-    <View style = {styles.container}> 
+    <View style = {styles.headerContainer}> 
 
       <BackButton/>
       
-      <View style = {styles.textView}>
-        <Text style ={styles.text}>Profile</Text>
+      <View style = {styles.headerTextView}>
+        <Text style ={styles.headerText}>Profile</Text>
       </View>         
     
     </View>
@@ -24,15 +24,15 @@ const HeaderProfileScreen = () => {
 const BackButton = () => {
   const navigation = useNavigation();
   return(
-    <View style = {styles.imageView}>
+    <View style = {styles.headerImageView}>
         <TouchableOpacity onPress={()=> navigation.goBack()}>
         <Image
               source={require('./../../../assets/images/BackIcon.jpg')}
-              style = {styles.image}
+              style = {styles.headerImage}
           />
         </TouchableOpacity>
       </View>
   )
 }
 
-export default HeaderProfileScreen
+export default HeaderAdminProfile

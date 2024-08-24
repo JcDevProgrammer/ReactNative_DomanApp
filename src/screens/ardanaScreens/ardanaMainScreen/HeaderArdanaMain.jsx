@@ -1,28 +1,27 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import styles from './../../../styles/screenStyles/adminStyles/AdminMainStyles'
 import { useNavigation } from '@react-navigation/native';
+import styles from './../../../styles/screenStyles/ardanaStyles/ArdanaMainStyles'
 
-const HeaderAdminScreen = () => {
-
-    const navigation = useNavigation();
+const HeaderArdanaMain = () => {
+  const navigation = useNavigation();
     
     return(
         <View style = {styles.headerContainer}>
           <View style = {styles.headerTextView}>
-            <Text style = {styles.headerTextAdmin}>Admin</Text>
+            <Text style = {styles.headerTextAdmin}>Ardanna</Text>
+            <Text style = {styles.headerTextAdmin}>Volunteer</Text>
           </View>
           <View style = {styles.headerImageView}>
-            <TouchableOpacity onPress={() => navigation.push('AdminProfile')}>
+            <TouchableOpacity onPress={() => navigation.push('ArdanaProfile')}>
                 <Image
                 source={require('./../../../assets/images/ProfileIcon.png')}
                 style = {styles.headerImage}
                 />
             </TouchableOpacity>
-          
           </View>
         </View>
       )
-    }
+}
 
-export default HeaderAdminScreen
+export default HeaderArdanaMain

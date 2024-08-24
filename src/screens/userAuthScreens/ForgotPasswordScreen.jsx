@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import CustomInput from '../../components/CustomInput'
 import RedButton from '../../components/RedButton'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { schema } from '../../components/InputRegistrationValidation'
+import { schema } from '../../components/EmailValidation'
 import { useNavigation } from '@react-navigation/native';
 import {getAuth, sendPasswordResetEmail } from 'firebase/auth'
 
@@ -25,6 +25,7 @@ const ForgotPasswordScreen = () => {
       defaultValues: {
         email: "",
       },
+      resolver: yupResolver(schema)
     }
   )
 
@@ -35,7 +36,7 @@ const ForgotPasswordScreen = () => {
       try {
         await sendPasswordResetEmail(auth, data.email);
         console.log("Success: Password reset email sent");
-        navigation.navigate('ForgotChangePass')
+        navigation.navigate('ForgotChangePass',{ formData: data })
       } catch (error) {
         console.log("Failed: ", error.message);
       }

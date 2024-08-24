@@ -1,10 +1,10 @@
 import { View, Text, Image, SafeAreaView} from 'react-native'
 import React from 'react'
-import styles from '../../../styles/screenStyles/adminStyles/AdminEditProfileStyles'
+import styles from '../../../styles/screenStyles/ardanaStyles/ArdanaEditProfileStyles'
 import { useForm } from 'react-hook-form'
 import CustomInput from './../../../components/CustomInput'
 
-const BodyAdminEditProfile = () => {
+const BodyArdanaEditProfile = () => {
 
   const {
     control,
@@ -83,4 +83,4 @@ const EditProfileImage = () =>{
     )
 }
 
-export default BodyAdminEditProfile
+export default BodyArdanaEditProfile

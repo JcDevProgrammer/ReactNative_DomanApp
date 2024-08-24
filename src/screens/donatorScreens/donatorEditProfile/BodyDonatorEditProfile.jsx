@@ -4,7 +4,7 @@ import styles from '../../../styles/screenStyles/adminStyles/AdminEditProfileSty
 import { useForm } from 'react-hook-form'
 import CustomInput from './../../../components/CustomInput'
 
-const BodyAdminEditProfile = () => {
+const BodyDonatorEditProfile = () => {
 
   const {
     control,
@@ -68,8 +68,6 @@ const BodyAdminEditProfile = () => {
   )
 }
 
-
-
 const EditProfileImage = () =>{
   return(
     
@@ -83,4 +81,4 @@ const EditProfileImage = () =>{
     )
 }
 
-export default BodyAdminEditProfile
+export default BodyDonatorEditProfile

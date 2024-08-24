@@ -1,10 +1,9 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
-import styles from './../../../styles/screenStyles/adminStyles/AdminEditProfileStyles'
+import styles from './../../../styles/screenStyles/donatorStyles/DonatorProfileStyles'
 
-
-const HeaderAdminEditProfile = () => {
+const HeaderDonatorProfile = () => {
 
   return(
 
@@ -13,7 +12,7 @@ const HeaderAdminEditProfile = () => {
       <BackButton/>
       
       <View style = {styles.headerTextView}>
-        <Text style ={styles.headerText}>Edit Profile</Text>
+        <Text style ={styles.headerText}>Donor Profile</Text>
       </View>         
     
     </View>
@@ -34,5 +33,4 @@ const BackButton = () => {
       </View>
   )
 }
-
-export default HeaderAdminEditProfile
+export default HeaderDonatorProfile

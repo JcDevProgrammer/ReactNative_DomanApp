@@ -1,7 +1,7 @@
 import { View, Text, SafeAreaView, Image, TouchableOpacity} from 'react-native'
 import React from 'react'
 import styles from './../../styles/screenStyles/userAuthStyles/ForgotChangePassStyles'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import RedButton from '@/src/components/RedButton'
 
 import { useState } from'react';
@@ -12,6 +12,8 @@ import app from './../../components/firebase'
 
 const ForgotChangePassScreen = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { formData } = route.params;
 
   const Done = () => {
     return (
@@ -36,11 +38,11 @@ const ForgotChangePassScreen = () => {
 
   async function ResendPasswordResetEmail() {
     const auth = getAuth(app);
-    const user = auth.currentUser; // Get the currently signed-in user
+   
 
-    if (user) {
+    if (formData && formData.email) {
       try {
-        await sendPasswordResetEmail(auth, user.email);
+        await sendPasswordResetEmail(auth, formData.email);
         console.log('Email sent reset password!');
         setModalResend(true); 
 

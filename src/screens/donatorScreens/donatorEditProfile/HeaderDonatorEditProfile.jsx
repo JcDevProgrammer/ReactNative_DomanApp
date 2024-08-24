@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import styles from './../../../styles/screenStyles/adminStyles/AdminEditProfileStyles'
 
 
-const HeaderAdminEditProfile = () => {
+const HeaderDonatorEditProfile = () => {
 
   return(
 
@@ -35,4 +35,4 @@ const BackButton = () => {
   )
 }
 
-export default HeaderAdminEditProfile
+export default HeaderDonatorEditProfile

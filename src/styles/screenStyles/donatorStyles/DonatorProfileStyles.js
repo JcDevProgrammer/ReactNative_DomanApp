@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar'
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
@@ -35,7 +36,7 @@ export default StyleSheet.create({
         paddingTop: 35
       },
     headerImageView:{
-        paddingRight: 75
+        paddingRight: 40
     },
     headerImage:{
         height: 30,
@@ -43,7 +44,7 @@ export default StyleSheet.create({
     },
     headerTextView: {
         justifyContent: 'center',
-        paddingRight: 115
+        paddingRight: 80
     },
     headerText: {
         fontSize:20,

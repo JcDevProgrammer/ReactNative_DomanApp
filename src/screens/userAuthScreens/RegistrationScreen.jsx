@@ -5,7 +5,7 @@ import {useForm} from "react-hook-form"
 import CustomInput from '../../components/CustomInput'
 import RedButton from '../../components/RedButton'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { schema } from '../../components/InputRegistrationValidation'
+import { schema } from '../../components/RegistrationValidation'
 import { useNavigation } from '@react-navigation/native'
 
 import app from '../../components/firebase'

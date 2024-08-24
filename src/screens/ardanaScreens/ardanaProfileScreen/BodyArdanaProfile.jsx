@@ -10,12 +10,13 @@ import app from './../../../components/firebase' // Ensure correct path to confi
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-const BodyAdminProfile = () => {
+const BodyArdanaProfile = () => {
   const navigation = useNavigation();
   const [userData, setUserData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    phone: '',
+    phoneNumber: '',
     birthday: ''
   });
 
@@ -24,7 +25,7 @@ const BodyAdminProfile = () => {
       try {
         const user = auth.currentUser;
         if (user) {
-          const userDocRef = doc(db, 'Admin', user.uid); // Reference to the document
+          const userDocRef = doc(db, 'Ardana', user.uid); // Reference to the document
           const userDoc = await getDoc(userDocRef); // Fetch the document
           if (userDoc.exists()) {
             setUserData(userDoc.data()); // Update state with fetched data
@@ -45,14 +46,14 @@ const BodyAdminProfile = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ProfileImage />
-      <Name name={userData.name} />
+      <Name name={userData.firstName + ' ' + userData.lastName} />
       <Email email={userData.email} />
-      <Phone phone={userData.phone} />
+      <Phone phone={userData.phoneNumber} />
       <Birthday birthday={userData.birthday} />
 
       <RedButton
         text={'Edit Profile'}
-        onPress={() => navigation.push('AdminEditProfile')}
+        onPress={() => navigation.push('ArdanaEditProfile')}
       />
 
       <RedButton
@@ -95,7 +96,7 @@ const Email = ({ email }) => {
   );
 };
 
-const Phone = ({ phone }) => {
+const Phone = ({ phone}) => {
   return (
     <View style={styles.textContainer}>
       <Text style={styles.text}>Phone:</Text>
@@ -114,4 +115,4 @@ const Birthday = ({ birthday }) => {
 };
 
 
-export default BodyAdminProfile;
+export default BodyArdanaProfile;
