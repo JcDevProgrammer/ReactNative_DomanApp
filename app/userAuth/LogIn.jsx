@@ -1,4 +1,4 @@
-import { View, Text} from 'react-native'
+import { View, Text, ScrollView} from 'react-native'
 import React from 'react'
 import styles from '../../src/styles/appStyles/DomanLogInStyles'
 import { useNavigation } from '@react-navigation/native';
@@ -8,7 +8,7 @@ import LogInScreen from '../../src/screens/userAuthScreens/LogInScreen'
 
 const LogIn = () => {
   return (
-    <View >
+    <ScrollView >
       <View >
         <LogInScreen/>
       </View>
@@ -16,7 +16,7 @@ const LogIn = () => {
       <View >
          <ForgotPasswordandRegistration/>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -29,7 +29,7 @@ const ForgotPasswordandRegistration = () =>{
 
     <View style = {styles.textContainer}>
 
-      <Text 
+      <Text
       onPress={() => navigation.push('ForgotPassword')}>Forgot Password
       </Text>
         

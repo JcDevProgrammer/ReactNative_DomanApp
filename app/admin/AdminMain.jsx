@@ -8,7 +8,6 @@ const AdminMain = () => {
     <View>
       <HeaderAdminMain/>
       <BodyAdminMain/>
-      
     </View>
   )
 }
