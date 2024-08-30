@@ -1,14 +1,14 @@
 import { View, Text, SafeAreaView, TextInput, Button, Platform} from 'react-native'
 import { useState, useEffect } from 'react'
 import React from 'react'
-import styles from './../../../styles/screenStyles/donatorStyles/DonatorDonateStyles'
+import styles from './../../../styles/screenStyles/ardanaStyles/ArdanaRequestStyles'
 import Checkbox from 'expo-checkbox';
 import { Picker } from '@react-native-picker/picker';
 import RedButton from '@/src/components/RedButton';
 
 import MyDatePicker from '../../../components/MyDatePicker'
 
-const BodyDonatorDonate = () => {
+const BodyArdanaRequest = () => {
 const [food, setFood] = useState(false);
 const [medicine, setMedicine] = useState(false);
 const [selectedValue, setSelectedValue] = useState(null);
@@ -104,12 +104,7 @@ useEffect(() => {
         </View>
 
       <View style={styles.containerDate}>
-      <Text style={styles.textDate}>Date Received: </Text>
-      <MyDatePicker/>
-      </View>
-
-      <View style={styles.containerDate}>
-      <Text style={styles.textDate}>Date Expired:  </Text>
+      <Text style={styles.textDate}>Distribution date: </Text>
       <MyDatePicker/>
       </View>
       
@@ -130,5 +125,4 @@ useEffect(() => {
 }
 
 
-export default BodyDonatorDonate
-
+export default BodyArdanaRequest

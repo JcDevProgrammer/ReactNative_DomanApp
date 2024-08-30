@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Platform, View, Text, TouchableOpacity, Image, StyleSheet, TextInput } from 'react-native';
+import { Platform, View, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import styles from './../styles/componentStyles/CustomDatePickerStyles'
 
 // Conditionally import `react-datepicker` only if running on the web
 let DatePicker;
@@ -65,8 +66,9 @@ export default function CustomDatePicker() {
 
   return (
     <View>
+      
       {Platform.OS === 'web' ? (
-        <View>
+        <View >
           {show && (
             <DatePicker
               selected={date}
@@ -77,7 +79,7 @@ export default function CustomDatePicker() {
               inline
             />
           )}
-        
+         <View style= {styles.containerInput}>
           <TextInput
             style={[styles.input, error ? { borderColor: 'red' } : null]} // Highlight border if error
             value={textDate} // Controlled TextInput value
@@ -90,9 +92,11 @@ export default function CustomDatePicker() {
               style={styles.calendarIcon}
             />
           </TouchableOpacity>
-
+          </View>
+          <View style={styles.containerError}>
+          <Text> </Text>
           {error ? <Text style={styles.errorText}>{error}</Text> : null} {/* Display error message */}
-          
+          </View>
         </View>
       ) : (
         <View>
@@ -129,25 +133,3 @@ export default function CustomDatePicker() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  calendarIcon: {
-    width: 30,
-    height: 30,
-    marginTop: 10,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingLeft: 8,
-    width: 110
-  },
-  containerInput:{
-    flexDirection: 'row'
-  },
-  errorText: {
-    color: 'red',
-    marginTop: 5,
-  },
-});

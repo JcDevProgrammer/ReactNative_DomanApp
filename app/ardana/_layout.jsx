@@ -6,6 +6,7 @@ export default function RootLayout() {
   return (
     
     <Stack screenOptions={{headerShown:false}}>
+       
       <Stack.Screen name="ArdanaMain"/>
       <Stack.Screen name= "ArdanaProfile"/>
       <Stack.Screen name= "ArdanaEditProfile"/>
