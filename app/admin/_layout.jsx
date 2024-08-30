@@ -12,6 +12,7 @@ export default function RootLayout() {
       <Stack.Screen name="AdminDonationApprov"/>
       <Stack.Screen name="AdminFood"/>
       <Stack.Screen name="AdminMedicine"/>
+      
     </Stack>
   );
 }

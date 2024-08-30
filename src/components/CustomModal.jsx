@@ -8,7 +8,7 @@ const CustomModal = ({ isVisible, onClose, message }) => {
     if (isVisible) {
       const timer = setTimeout(() => {
         onClose();
-      }, 1000); // 1 second durationreturn() =>clearTimeout(timer); // Clear timeout on unmount or isVisible change
+      }, 3000); // 1 second durationreturn() =>clearTimeout(timer); // Clear timeout on unmount or isVisible change
     }
   }, [isVisible]);
 
@@ -39,8 +39,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalView: {
-    width: 300,
-    height: 80,
     backgroundColor: 'white',
     borderRadius: 10,
     alignItems: 'center',

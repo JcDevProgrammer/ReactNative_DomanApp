@@ -1,11 +1,14 @@
-import { View, Text, Image, SafeAreaView, TextInput, ScrollView, Alert} from 'react-native'
+import { View, Text, Image, SafeAreaView, ScrollView, ActivityIndicator} from 'react-native'
 import React from 'react'
+import { useState } from 'react';
 import styles from '../../styles/screenStyles/userAuthStyles/LogInScreenStyles'
 import RedButton from '../../components/RedButton'
 import CustomInput from '../../components/CustomInput'
 import {useForm, Controller} from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation } from '@react-navigation/native';
+import { schema } from '../../components/LogInValidation';
+import CustomModal from './../../components/CustomModal'; 
 
 import { getAuth, signInWithEmailAndPassword } from '@firebase/auth';
 import { getFirestore, collection, getDoc, doc} from 'firebase/firestore'
@@ -13,7 +16,10 @@ import { getFirestore, collection, getDoc, doc} from 'firebase/firestore'
 import app from '../../components/firebase'
 
 const LogInScreen = () => {
-  
+  const navigation = useNavigation();
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // State for loading
 
   const {
     control,
@@ -27,13 +33,18 @@ const LogInScreen = () => {
         email: "",
         password: "",
       },
-    
+      resolver: yupResolver(schema)
     }
   )
-  const navigation = useNavigation();
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
 
   const LogIn = async (data) =>{
+    setIsLoading(true); // Start loading
+
   const auth = getAuth(app);
   const firestore = getFirestore(app);
  
@@ -45,6 +56,7 @@ const LogInScreen = () => {
     const userId = user.uid;
 
     console.log("Email and password:", email, password);
+    
 
     if (userId) {
       const ardanaRef = doc(firestore, 'Ardana', userId);
@@ -60,18 +72,26 @@ const LogInScreen = () => {
         console.log("User found in Firestore Ardana:", ardanaDoc.data());
         // Navigate to the 'ardana' screen with the user's data
         navigation.navigate('ardana', { userData: ardanaDoc.data() });
+        setIsLoading(false); // Stop loading
+
       } else if  (adminDoc.exists()){
         console.log("User found in Firestore Admin:", adminDoc.data());
         navigation.navigate('admin', { userData: adminDoc.data() });
+        setIsLoading(false); // Stop loading
+
       } else if (donatorDoc.exists()){
         console.log("User found in Firestore Donator:", donatorDoc.data());
         navigation.navigate('donator', { userData: donatorDoc.data() });
+        setIsLoading(false); // Stop loading
+
       }
     }  
 
   } catch (error) {
     console.error("Error logging in and checking Firestore:", error.message);
-    // Handle the error (e.g., show an alert to the user)
+    setModalMessage(`Error logging In: ${error.message}`);
+    setModalVisible(true);
+    setIsLoading(false); // Stop loading
   }
 };
  
@@ -81,6 +101,14 @@ const LogInScreen = () => {
       <ScrollView>
 
         <View style= {styles.container}>
+
+        {isLoading ? (
+            <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#0000ff" />
+            <Text style={styles.loadingText}>Loading please wait...</Text>
+          </View>
+          ) : (
+            <>
 
           <RedCrossImage/>
       
@@ -104,7 +132,18 @@ const LogInScreen = () => {
           />
 
           <RedButton text={'Log In'} onPress={handleSubmit(LogIn) }/>
+          <CustomModal
+            isVisible={isModalVisible}
+            onClose={closeModal}
+            message={modalMessage}
+          />
 
+        <View >
+          <ForgotPasswordandRegistration/>
+        </View>
+
+        </>
+        )}
         </View>
 
       </ScrollView>
@@ -118,6 +157,27 @@ const RedCrossImage = () => {
         source={require('./../../assets/images/RedCrossLogo.jpg')}
         style= {styles.image}
         />
+  )
+}
+
+const ForgotPasswordandRegistration = () =>{
+
+  const navigation = useNavigation();
+
+  return(
+
+    <View style = {styles.textContainer}>
+
+      <Text
+      onPress={() => navigation.push('ForgotPassword')}>Forgot Password
+      </Text>
+        
+      <Text 
+      style = {styles.linkRegister} 
+      onPress={() => navigation.push('RegistrationSelect')}>Register
+      </Text>
+      
+    </View>
   )
 }
 

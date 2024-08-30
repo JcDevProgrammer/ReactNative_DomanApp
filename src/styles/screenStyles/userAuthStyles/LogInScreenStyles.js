@@ -48,4 +48,28 @@ export default StyleSheet.create({
         paddingBottom: 10
     },
 
+    textContainer: {
+        paddingTop: 25,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+      },
+    
+      linkRegister: {
+        paddingLeft: 120,
+        color: 'blue'
+      },
+      loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        paddingTop: 100
+      },
+      loadingText: {
+        marginTop: 10,
+        fontSize: 18,
+        color: '#000',
+      },
+
 })

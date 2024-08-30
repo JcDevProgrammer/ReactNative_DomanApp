@@ -28,7 +28,7 @@ export default StyleSheet.create({
     },
     headerTextView: {
         justifyContent: 'center',
-        paddingLeft: 115
+        paddingLeft: 70
     },
     headerText: {
         fontSize:20

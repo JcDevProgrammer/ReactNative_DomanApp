@@ -21,5 +21,17 @@ export default StyleSheet.create({
     image:{
         height: 30,
         width: 30,
-    }
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        paddingTop: 100
+      },
+      loadingText: {
+        marginTop: 10,
+        fontSize: 18,
+        color: '#000',
+      },
 })

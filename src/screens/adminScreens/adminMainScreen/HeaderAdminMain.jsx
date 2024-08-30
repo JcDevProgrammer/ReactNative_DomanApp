@@ -9,6 +9,13 @@ const HeaderAdminScreen = () => {
     
     return(
         <View style = {styles.headerContainer}>
+            <TouchableOpacity onPress={() => navigation.push('AdminAccept')}>
+              <Image 
+              source={require('./../../../assets/images/AcceptingVolunteer.jpg')}
+              style= {styles.headerImage}
+              />
+            </TouchableOpacity>
+
           <View style = {styles.headerTextView}>
             <Text style = {styles.headerTextAdmin}>Admin</Text>
           </View>
