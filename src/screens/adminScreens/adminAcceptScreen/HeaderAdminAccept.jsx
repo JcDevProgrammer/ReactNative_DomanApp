@@ -13,7 +13,7 @@ const HeaderAdminProfile = () => {
       <BackButton/>
       
       <View style = {styles.headerTextView}>
-        <Text style ={styles.headerText}>Manage Volunteer User</Text>
+        <Text style ={styles.headerText}>Manage User</Text>
       </View>         
     
     </View>

@@ -7,9 +7,9 @@ const AdminAccept = () => {
   return (
     <View style={styles.container}>
       <HeaderAdminAccept />
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+     
         <BodyAdminAccept />
-      </ScrollView>
+    
     </View>
   );
 };

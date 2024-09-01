@@ -47,20 +47,23 @@ const RegistrationDonatorScreen = () => {
     const { name, phoneNumber, email, password } = data;
 
     try {
+      // Create user
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
+      // Save user data to Firestore
       await setDoc(doc(db, 'Donator', user.uid), {
         name,
         phoneNumber,
         email,
       });
 
-      console.log('User signed up and data stored in Firestore!');
+      // Send email verification
       await sendEmailVerification(user);
 
+      console.log('User signed up and data stored in Firestore!');
       setIsLoading(false); // Stop loading
-      navigation.push('VerifyEmail');
+      navigation.push('VerifyEmail'); // Navigate to email verification screen
     } catch (error) {
       console.error('Error signing up:', error);
       setModalMessage(`Error signing up: ${error.message}`);
@@ -78,7 +81,7 @@ const RegistrationDonatorScreen = () => {
           {isLoading ? (
             <View style={styles.loadingContainer}>
               <ActivityIndicator size="large" color="#0000ff" />
-              <Text style={styles.loadingText}>Loading please wait...</Text>
+              <Text style={styles.loadingText}>Loading, please wait...</Text>
             </View>
           ) : (
             <>
@@ -105,7 +108,7 @@ const RegistrationDonatorScreen = () => {
                 name={'email'}
                 placeholder={'Valid Email'}
                 iconName={"email"}
-                nameDisplay={"Valid Email      "}
+                nameDisplay={"Valid Email"}
                 errors={errors}
               />
 
@@ -114,7 +117,8 @@ const RegistrationDonatorScreen = () => {
                 name={'password'}
                 placeholder={'Password'}
                 iconName={"lock"}
-                nameDisplay={"Password           "}
+                nameDisplay={"Password"}
+                secureTextEntry
                 errors={errors}
               />
 
@@ -124,6 +128,7 @@ const RegistrationDonatorScreen = () => {
                 placeholder={'Confirm Password'}
                 iconName={"lock"}
                 nameDisplay={"Confirm Password"}
+                secureTextEntry
                 errors={errors}
               />
 

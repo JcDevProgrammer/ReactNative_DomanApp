@@ -4,6 +4,7 @@ import React from "react";
 export default function RootLayout() {
   return (
     <Stack screenOptions={{headerShown:false}}>
+  
       <Stack.Screen name="AdminMain"/>
       <Stack.Screen name="AdminProfile"/>
       <Stack.Screen name="AdminEditProfile"/>
@@ -12,7 +13,7 @@ export default function RootLayout() {
       <Stack.Screen name="AdminDonationApprov"/>
       <Stack.Screen name="AdminFood"/>
       <Stack.Screen name="AdminMedicine"/>
-      
+      <Stack.Screen name="AdminAccept"/>
     </Stack>
   );
 }
