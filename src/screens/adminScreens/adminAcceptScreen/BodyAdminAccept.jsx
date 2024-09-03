@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
-import { collection, getDocs, getFirestore, doc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, getFirestore, doc, deleteDoc, documentId } from 'firebase/firestore';
 import { getAuth, deleteUser } from 'firebase/auth'; // Import Firebase Authentication functions
 import app from './../../../components/firebase';
 import RedButton from '@/src/components/RedButton';
+import { getFunctions, httpsCallable } from 'firebase/functions';
+
 
 const db = getFirestore(app);
 const auth = getAuth(app);
+const functions = getFunctions(app);
 
 const BodyAdminAccept = () => {
   const [ardanaData, setArdanaData] = useState([]);
@@ -48,62 +51,48 @@ const BodyAdminAccept = () => {
   const handleDelete = async (docId, collectionName) => {
     try {
       console.log(`Deleting document ID: ${docId} from collection: ${collectionName}`);
-      
+  
       if (!collectionName || !docId) {
         console.error('Invalid collectionName or docId');
         return;
       }
-
-      const docRef = doc(db, collectionName, docId);
-      await deleteDoc(docRef);
-      console.log(`Document from ${collectionName} successfully deleted!`);
-
-      const otherCollectionName = collectionName === 'Ardana' ? 'Donator' : 'Ardana';
-      const otherDocSnapshot = await getDocs(collection(db, otherCollectionName));
-      const otherDoc = otherDocSnapshot.docs.find(doc => doc.id === docId);
-
-      if (otherDoc) {
-        const otherDocRef = doc(db, otherCollectionName, docId);
-        await deleteDoc(otherDocRef);
-        console.log(`Document from ${otherCollectionName} successfully deleted!`);
+  
+      const deleteUserAndDocument = httpsCallable(functions, 'deleteUserAndDocument');
+      const result = await deleteUserAndDocument({ docId, collectionName });
+  
+      if (result.data.success) {
+        console.log(`User and document with ID ${docId} successfully deleted!`);
+        fetchData(); // Refresh the data after deletion
       } else {
-        console.log(`No document found in ${otherCollectionName} with ID: ${docId}`);
+        console.error('Failed to delete user or document');
       }
-
-      // Delete the user's authentication if the document is from 'Ardana'
-      if (collectionName === 'Ardana') {
-        const userAuth = auth.currentUser; // Get the current admin user
-        const user = await auth.getUser(docId); // Fetch the user by UID
-
-        if (user && user.uid !== userAuth.uid) {
-          await deleteUser(user);
-          console.log(`User with UID ${docId} successfully deleted from Firebase Auth!`);
-        } else {
-          console.log('Admin user cannot be deleted');
-        }
-      }
-
-      fetchData();
     } catch (error) {
-      console.error("Error removing document or user: ", error);
+      console.error('Error removing document or user:', error);
     }
   };
-
+  
+  
   const renderItem = ({ item }) => (
+  <View style={styles.containerAll}>
     <View style={styles.item}>
       {Object.keys(item).filter(key => key !== 'id' && key !== 'collectionName').map((key) => (
         <Text key={key} style={styles.field}>
           {key}: {JSON.stringify(item[key])}
         </Text>
       ))}
+      </View>
+      <View style={styles.containerButton}>
       <RedButton
         text="Delete"
         onPress={() => handleDelete(item.id, item.collectionName)}
       />
-    </View>
+      </View>
+  </View>
+
   );
 
   return (
+    <View style= {styles.containerAllReturn}>
     <View style={styles.container}>
       <Text style={styles.title}>Ardana Documents</Text>
       <FlatList
@@ -111,7 +100,8 @@ const BodyAdminAccept = () => {
         keyExtractor={item => item.id}
         renderItem={renderItem}
       />
-     
+     </View>
+     <View style={styles.container}>
       <Text style={styles.title}>Donator Documents</Text>
       <FlatList
         data={donatorData}
@@ -119,13 +109,37 @@ const BodyAdminAccept = () => {
         renderItem={renderItem}
       />
     </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  containerAll:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     flex: 1,
-    padding: 16,
+    borderWidth:1,
+    paddingTop:10
+  },
+  containerAllReturn:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+
+  },
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 400,
+    flex: 1,
+
+  },
+  containerButton:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 125, 
+
   },
   title: {
     fontSize: 18,
@@ -133,13 +147,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   item: {
-    padding: 16,
+    width: 230, 
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     marginBottom: 8,
+
   },
   field: {
-    fontSize: 16,
+    fontSize: 14,
     marginBottom: 4,
   },
 });
