@@ -1,10 +1,13 @@
 import { View, Text } from 'react-native'
 import React from 'react'
+import BodyDonationApprov from './../../src/screens/adminScreens/adminDonationApprov/BodyDonationApprov'
+import HeaderDonationApprov from './../../src/screens/adminScreens/adminDonationApprov/HeaderDonationApprov'
 
 const AdminDonationApprov = () => {
   return (
     <View>
-      <Text>AdminDonationApprov</Text>
+      <HeaderDonationApprov/>
+      <BodyDonationApprov/>
     </View>
   )
 }

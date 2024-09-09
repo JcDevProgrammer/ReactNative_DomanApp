@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Platform, View, Text, TouchableOpacity, Image, TextInput } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import styles from './../styles/componentStyles/CustomDatePickerStyles'
+import styles from './../styles/componentStyles/CustomDatePickerStyles';
 
-// Conditionally import `react-datepicker` only if running on the web
+// Conditionally import react-datepicker only if running on the web
 let DatePicker;
 if (Platform.OS === 'web') {
   DatePicker = require('react-datepicker').default;
@@ -18,42 +18,43 @@ const formatDate = (date) => {
   return `${month}/${day}/${year}`;
 };
 
-export default function CustomDatePicker() {
-  const [date, setDate] = useState(new Date());
-  const [textDate, setTextDate] = useState(formatDate(date)); // State to handle TextInput value
-  const [show, setShow] = useState(false);
-  const [error, setError] = useState(''); // State to handle error message
+const MyDatePicker = ({ date, setDate }) => {
+  const [textDate, setTextDate] = React.useState(formatDate(date));
+  const [show, setShow] = React.useState(false);
+  const [error, setError] = React.useState('');
+
+  React.useEffect(() => {
+    setTextDate(formatDate(date));
+  }, [date]);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
-    setTextDate(formatDate(currentDate)); // Update TextInput value when date is selected
-    setError(''); // Clear any existing error
+    setTextDate(formatDate(currentDate));
+    setError('');
   };
 
   const handleWebChange = (date) => {
     setDate(date);
-    setTextDate(formatDate(date)); // Update TextInput value on web
-    setError(''); // Clear any existing error
+    setTextDate(formatDate(date));
+    setError('');
   };
 
   const handleTextInputChange = (text) => {
-    setTextDate(text); // Update TextInput state on change
+    setTextDate(text);
   };
 
   const handleBlur = () => {
-    // Regular expression to validate MM/DD/YYYY format
     const dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/\d{4}$/;
-
     if (dateRegex.test(textDate)) {
       const [month, day, year] = textDate.split('/').map(Number);
       const parsedDate = new Date(year, month - 1, day);
       if (!isNaN(parsedDate)) {
         setDate(parsedDate);
-        setError(''); // Clear error if date is valid
+        setError('');
       } else {
-        setError('Invalid format');
+        setError('Invalid date');
       }
     } else {
       setError('MM/DD/YYYY');
@@ -66,70 +67,68 @@ export default function CustomDatePicker() {
 
   return (
     <View>
-      
       {Platform.OS === 'web' ? (
-        <View >
+        <View>
           {show && (
             <DatePicker
               selected={date}
               onChange={handleWebChange}
-              dateFormat="MM/dd/yyyy" // Format the date as MM/DD/YYYY
+              dateFormat="MM/dd/yyyy"
               className="date-picker"
-              onClickOutside={() => setShow(false)} // Close picker when clicking outside
+              onClickOutside={() => setShow(false)}
               inline
             />
           )}
-         <View style= {styles.containerInput}>
-          <TextInput
-            style={[styles.input, error ? { borderColor: 'red' } : null]} // Highlight border if error
-            value={textDate} // Controlled TextInput value
-            onChangeText={handleTextInputChange} // Update text state on change
-            onBlur={handleBlur} // Validate and update date on blur
-          />
-            <TouchableOpacity onPress={showDatepicker}>
-            <Image 
-              source={require('./../assets/images/Calendar.jpg')} // Replace with your actual image path
-              style={styles.calendarIcon}
+          <View style={styles.containerInput}>
+            <TextInput
+              style={[styles.input, error ? { borderColor: 'red' } : null]}
+              value={textDate}
+              onChangeText={handleTextInputChange}
+              onBlur={handleBlur}
             />
-          </TouchableOpacity>
+            <TouchableOpacity onPress={showDatepicker}>
+              <Image 
+                source={require('./../assets/images/Calendar.jpg')}
+                style={styles.calendarIcon}
+              />
+            </TouchableOpacity>
           </View>
           <View style={styles.containerError}>
-          <Text> </Text>
-          {error ? <Text style={styles.errorText}>{error}</Text> : null} {/* Display error message */}
+            <Text>{error ? <Text style={styles.errorText}>{error}</Text> : null}</Text>
           </View>
         </View>
       ) : (
         <View>
-          <View style= {styles.containerInput}>
-          {show && (
-            <DateTimePicker
-              value={date}
-              mode="date"
-              is24Hour={true}
-              display="default"
-              onChange={onChange}
+          <View style={styles.containerInput}>
+            {show && (
+              <DateTimePicker
+                value={date}
+                mode="date"
+                is24Hour={true}
+                display="default"
+                onChange={onChange}
+              />
+            )}
+            <TextInput
+              style={[styles.input, error ? { borderColor: 'red' } : null]}
+              value={textDate}
+              onChangeText={handleTextInputChange}
+              onBlur={handleBlur}
             />
-          )}
-          <TextInput
-            style={[styles.input, error ? { borderColor: 'red' } : null]} // Highlight border if error
-            value={textDate} // Controlled TextInput value
-            onChangeText={handleTextInputChange} // Update text state on change
-            onBlur={handleBlur} // Validate and update date on blur
-          />
-          <TouchableOpacity onPress={showDatepicker}>
-            <Image 
-              source={require('./../assets/images/Calendar.jpg')} // Replace with your actual image path
-              style={styles.calendarIcon}
-            />
-          </TouchableOpacity>
+            <TouchableOpacity onPress={showDatepicker}>
+              <Image 
+                source={require('./../assets/images/Calendar.jpg')}
+                style={styles.calendarIcon}
+              />
+            </TouchableOpacity>
           </View>
-
-
-          <Text>
-          {error ? <Text style={styles.errorText}>{error}</Text> : null} {/* Display error message */}
-          </Text>
+          <View style={styles.containerError}>
+            <Text>{error ? <Text style={styles.errorText}>{error}</Text> : null}</Text>
+          </View>
         </View>
       )}
     </View>
   );
-}
+};
+
+export default MyDatePicker;

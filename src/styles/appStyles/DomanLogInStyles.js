@@ -12,5 +12,4 @@ export default StyleSheet.create({
         paddingLeft: 120,
         color: 'blue'
       }
-
 })

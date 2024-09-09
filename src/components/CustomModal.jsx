@@ -9,6 +9,7 @@ const CustomModal = ({ isVisible, onClose, message }) => {
       const timer = setTimeout(() => {
         onClose();
       }, 3000); // 1 second durationreturn() =>clearTimeout(timer); // Clear timeout on unmount or isVisible change
+      return () => clearTimeout(timer); 
     }
   }, [isVisible]);
 
@@ -16,7 +17,7 @@ const CustomModal = ({ isVisible, onClose, message }) => {
     <Modal isVisible = {isVisible} 
     animationIn = "fadeIn"
     animationOut = "fadeOut"
-    backdropOpacity = {0.1}
+    backdropOpacity = {0.4}
     onBackdropPress={onClose} // Closemodalifbackdropispressedstyle={styles.modal}
     >
     
@@ -42,12 +43,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     alignItems: 'center',
-
+    borderWidth: 1
   },
   modalText: {
     padding: 20,
     textAlign: 'center',
     fontSize: 16,
+    fontWeight: 'bold'
   },
 });
 
