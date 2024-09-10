@@ -1,53 +1,77 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 10,
+    padding: 10, // Padding around the main container
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   scrollView: {
-    flex: 1,
+    flexDirection: 'row',
   },
   tableContainer: {
     flex: 1,
-
   },
   headerContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#f8f8f8',
+    flexDirection: 'row', // Align header cells horizontally
+    backgroundColor: '#f8f8f8', // Light background color for header
+    borderWidth: 1, // Add bottom border
   },
   headerCell: {
-    flex: 1,
-    padding: 10,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    fontWeight: 'bold', // Make text bold
+    textAlign: 'center', // Center the text horizontally
+    padding: 10, // Add some padding for better readability
+    borderWidth: 1,
+    width: 140
   },
   rowContainer: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    flexDirection: 'row', // Align row cells horizontally
+    borderWidth: 1, // Add bottom border between rows
+
+  },
+  quantityHeader:{
+    textAlign: 'center', // Center the text horizontally
+    padding: 10, // Add some padding for better readability
+    borderWidth: 1,
+    fontWeight: 'bold', // Make text bold
+    width: 60,
+  },
+  quantityCell:{
+    textAlign: 'center', // Center the text horizontally
+    padding: 10, // Add some padding for better readability
+    borderWidth: 1,
+    width: 60,
+  },
+  descriptionHeader:{
+    textAlign: 'center', // Center the text horizontally
+    padding: 10, // Add some padding for better readability
+    borderWidth: 1,
+    fontWeight: 'bold', // Make text bold
+    width: 300,
+  },
+  descriptionCell:{
+    textAlign: 'center', // Center the text horizontally
+    padding: 10, // Add some padding for better readability
+    borderWidth: 1,
+    width: 300,
   },
   cell: {
-    flex: 1,
-    padding: 10,
-    textAlign: 'center',
+    textAlign: 'center', // Center the text horizontally
+    padding: 10, // Add some padding for better readability
+    borderWidth: 1,
+    width: 140
   },
   buttonCell: {
     flex: 1,
-    padding: 10,
     justifyContent: 'center',
-    alignItems: 'center',
-  },
-  listContentContainer: {
-    paddingBottom: 20,
+    alignItems: 'center', // Center the delete button
   },
   loader: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'center', // Center loader vertically
+    alignItems: 'center', // Center loader horizontally
   },
+  acceptDelete: {
+    flexDirection: 'row'
+  }
 });
-
-

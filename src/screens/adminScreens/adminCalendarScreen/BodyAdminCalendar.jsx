@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, FlatList, Modal, Alert, ScrollView } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import RedButton from '@/src/components/RedButton';
 
 const months = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -126,7 +127,7 @@ const handleDeleteActivity = (index) => {
           key={day}
           onPress={() => {
             setSelectedDay(day);
-            setShowModal(true);
+            setShowModal(false);
           }}
           style={[
             styles.dayBox,
@@ -180,6 +181,7 @@ const handleDeleteActivity = (index) => {
     <View style={styles.container}>
       <Text style={styles.title}>CALENDAR</Text>
 
+      {/* Calendar navigation */}
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => setSelectedMonth(prev => prev === 0 ? 11 : prev - 1)}>
           <Text style={styles.navArrow}>{'<'}</Text>
@@ -192,15 +194,7 @@ const handleDeleteActivity = (index) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.navigationContainer}>
-        <TouchableOpacity onPress={() => setShowMonthPicker(true)} style={styles.button}>
-          <Text style={styles.buttonText}>Select Month</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setShowYearPicker(true)} style={styles.button}>
-          <Text style={styles.buttonText}>Select Year</Text>
-        </TouchableOpacity>
-      </View>
-
+      {/* Weekdays */}
       <View style={styles.weekDaysContainer}>
         {daysOfWeek.map((day, index) => (
           <View key={index} style={styles.weekDayBox}>
@@ -209,46 +203,36 @@ const handleDeleteActivity = (index) => {
         ))}
       </View>
 
+      {/* Days */}
       <View style={styles.daysContainer}>
         {renderDays()}
       </View>
 
+      {/* Activities list */}
       <View style={styles.activitiesContainer}>
-  <Text style={styles.activitiesTitle}>Activities/Notes</Text>
-  <FlatList
-    data={activities[`${selectedMonth + 1}/${selectedDay}/${selectedYear}`] || []}
-    keyExtractor={(item, index) => index.toString()}
-    renderItem={({ item, index }) => (
-      <View style={styles.activityItem}>
-        <Text style={styles.activityText}>{item.text}</Text>
-        <TouchableOpacity onPress={() => handleEditActivity(index)} style={styles.editButton}>
-          <Text style={styles.editButtonText}>Edit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleDeleteActivity(index)} style={styles.deleteButton}>
-          <Text style={styles.deleteButtonText}>Delete</Text>
-        </TouchableOpacity>
+        <Text style={styles.activitiesTitle}>Activities/Notes</Text>
+        <FlatList
+          data={activities[`${selectedMonth + 1}/${selectedDay}/${selectedYear}`] || []}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => (
+            <View style={styles.activityItem}>
+              <Text style={styles.activityText}>{item.text}</Text>
+              <TouchableOpacity onPress={() => handleEditActivity(index)} style={styles.editButton}>
+                <Text style={styles.editButtonText}>Edit</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleDeleteActivity(index)} style={styles.deleteButton}>
+                <Text style={styles.deleteButtonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          ListEmptyComponent={<Text style={styles.noActivityText}>No activities for this day.</Text>}
+        />
       </View>
-    )}
-    ListEmptyComponent={<Text style={styles.noActivityText}>No activities for this day.</Text>}
-  />
-  {editingActivityIndex !== null && (
-    <View style={styles.editContainer}>
-      <TextInput
-        value={activityToEdit}
-        onChangeText={setActivityToEdit}
-        placeholder="Edit activity..."
-        style={styles.input}
-      />
-      <TouchableOpacity onPress={handleSaveEdit} style={styles.saveButton}>
-        <Text style={styles.saveButtonText}>Save</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => setEditingActivityIndex(null)} style={styles.cancelButton}>
-        <Text style={styles.cancelButtonText}>Cancel</Text>
-      </TouchableOpacity>
-    </View>
-  )}
-</View>
 
+      {/* RedButton to trigger modal */}
+      <RedButton onPress={() => setShowModal(true)} />
+
+      {/* Activity modal triggered by RedButton */}
       {showModal && (
         <Modal visible={showModal} transparent={true} animationType="slide">
           <View style={styles.modalContainer}>
@@ -275,41 +259,6 @@ const handleDeleteActivity = (index) => {
                 />
               )}
               <TouchableOpacity onPress={() => setShowModal(false)} style={styles.closeButton}>
-                <Text style={styles.closeButtonText}>Close</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-      )}
-
-      {showMonthPicker && (
-        <Modal visible={showMonthPicker} transparent={true} animationType="slide">
-          <View style={styles.pickerContainer}>
-            <View style={styles.pickerContent}>
-              <Text style={styles.pickerTitle}>Select Month</Text>
-              {months.map((month, index) => (
-                <TouchableOpacity key={index} onPress={() => {
-                  setSelectedMonth(index);
-                  setShowMonthPicker(false);
-                }} style={styles.pickerItem}>
-                  <Text style={styles.pickerText}>{month}</Text>
-                </TouchableOpacity>
-              ))}
-              <TouchableOpacity onPress={() => setShowMonthPicker(false)} style={styles.closeButton}>
-                <Text style={styles.closeButtonText}>Close</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
-      )}
-
-      {showYearPicker && (
-        <Modal visible={showYearPicker} transparent={true} animationType="slide">
-          <View style={styles.pickerContainer}>
-            <View style={styles.pickerContent}>
-              <Text style={styles.pickerTitle}>Select Year</Text>
-              {renderYearColumns()}
-              <TouchableOpacity onPress={() => setShowYearPicker(false)} style={styles.closeButton}>
                 <Text style={styles.closeButtonText}>Close</Text>
               </TouchableOpacity>
             </View>
